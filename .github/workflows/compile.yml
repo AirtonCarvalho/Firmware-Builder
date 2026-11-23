@@ -26,12 +26,15 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install esp32:esp32
 
-      - name: Compilar para ESP32 OLED (.bin)
+      - name: Compilar ESP32 Full Merged (.bin para 0x0)
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32:PartitionScheme=huge_app --output-dir build/esp32 sketch/sketch.ino
+          arduino-cli compile \
+            --fqbn esp32:esp32:esp32:PartitionScheme=huge_app \
+            --output-dir build/esp32 \
+            sketch/sketch.ino
 
-      - name: Disponibilizar .bin para download
+      - name: Disponibilizar .bin completo para download
         uses: actions/upload-artifact@v4
         with:
           name: Firmware-ESP32-OLED
-          path: build/esp32/
+          path: build/esp32/sketch.ino.merged.bin
