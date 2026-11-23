@@ -16,22 +16,22 @@ jobs:
       - name: Instalar Arduino CLI
         uses: arduino/setup-arduino-cli@v2
 
-      - name: Instalar placas Arduino AVR e ESP32
+      - name: Instalar bibliotecas OLED (SSD1306 e GFX)
+        run: |
+          arduino-cli lib install "Adafruit SSD1306"
+          arduino-cli lib install "Adafruit GFX Library"
+
+      - name: Instalar core ESP32
         run: |
           arduino-cli core update-index
-          arduino-cli core install arduino:avr
           arduino-cli core install esp32:esp32
 
-      - name: Compilar para Arduino Uno/Nano (.hex)
-        run: |
-          arduino-cli compile --fqbn arduino:avr:uno --output-dir build/arduino sketch/sketch.ino
-
-      - name: Compilar para ESP32 (.bin)
+      - name: Compilar para ESP32 OLED (.bin)
         run: |
           arduino-cli compile --fqbn esp32:esp32:esp32 --output-dir build/esp32 sketch/sketch.ino
 
-      - name: Disponibilizar arquivos .hex e .bin
+      - name: Disponibilizar .bin para download
         uses: actions/upload-artifact@v4
         with:
-          name: Firmware-Compilado
-          path: build/
+          name: Firmware-ESP32-OLED
+          path: build/esp32/
