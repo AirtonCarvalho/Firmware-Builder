@@ -7,8 +7,8 @@
 // Pinos internos do OLED 0.96" na placa ideaspark ML-ESP32-096OLED
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-#define OLED_SDA 5
-#define OLED_SCL 4
+#define OLED_SDA 21
+#define OLED_SCL 22
 #define OLED_ADDR 0x3C
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
